@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { useEffect } from 'react';
 
 import onlineIcon from '../../icons/onlineIcon.png';

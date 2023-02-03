@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import queryString from 'query-string';
 import io from "socket.io-client";
 import Messages from '../Messages/Messages';
@@ -7,12 +7,15 @@ import InfoBar from '../InfoBar/InfoBar';
 import Input from '../Input/Input';
 
 import './Chat.css';
+import { useLocation } from "react-router-dom";
 
 const ENDPOINT = 'https://chat-server-tj7h.onrender.com/';
 
 let socket;
 
-const Chat = ({ location }) => {
+const Chat = ( ) => {
+  const location = useLocation()
+  
   const [name, setName] = useState('');
   const [room, setRoom] = useState('');
   const [users, setUsers] = useState('');
@@ -21,7 +24,6 @@ const Chat = ({ location }) => {
 
   useEffect(() => {
     const { name, room } = queryString.parse(location.search);
-
     socket = io(ENDPOINT);
 
     setRoom(room);
@@ -51,7 +53,7 @@ const Chat = ({ location }) => {
       socket.emit('sendMessage', message, () => setMessage(''));
     }
   }
-
+  
   return (
     <div className="outerContainer">
       <div className="container">

@@ -9,19 +9,24 @@ import './InfoBar.css';
 const serverURL = 'https://ligabotv2.onrender.com'
 
 const InfoBar = ({ room }) =>{
-  const [data,setData] = ('-')
+  const [data,setData] = ('')
+  const [loading, setLoading] = useState(false)
   useEffect(()=>{
     const fetchData = async () => {
       try{
+        setLoading(true)
         const res = await axios.post(`${serverURL}/advertisement/findById`,{advertisemetId:room.slice(12)})
         setData(JSON.stringify(res,null,2))
       }catch(e){
         setData(JSON.stringify(e,null,2))
+      }finally{
+        setLoading(false)
       }
       
     }
     fetchData()
   },[])
+  if(loading) return <div>Loading...</div>
   return(
     <div className="infoBar">
       <div className="leftInnerContainer">

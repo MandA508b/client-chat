@@ -32,9 +32,8 @@ const InfoBar = ({ room }) =>{
       }
       
     }
-    fetchData()
+    //fetchData()
   },[])
-  if(loading) return <div>Loading...</div>
   return(
     <div className="infoBar">
       <div className="leftInnerContainer">

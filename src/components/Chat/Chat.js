@@ -9,6 +9,7 @@ import Input from '../Input/Input';
 import './Chat.css';
 
 const ENDPOINT = 'https://chat-server-tj7h.onrender.com/';
+const serverURL = 'https://ligabotv2.onrender.com'
 
 let socket;
 
@@ -18,6 +19,9 @@ const Chat = ({ location }) => {
   const [users, setUsers] = useState('');
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
+  useEffect(()=>{
+
+  },[])
 
   useEffect(() => {
     const { name, room } = queryString.parse(location.search);
@@ -34,15 +38,15 @@ const Chat = ({ location }) => {
     });
   }, [ENDPOINT, location.search]);
   
-  useEffect(() => {
-    socket.on('message', message => {
-      setMessages(messages => [ ...messages, message ]);
-    });
-    
-    socket.on("roomData", ({ users }) => {
-      setUsers(users);
-    });
-}, []);
+    useEffect(() => {
+      socket.on('message', message => {
+        setMessages(messages => [ ...messages, message ]);
+      });
+      
+      socket.on("roomData", ({ users }) => {
+        setUsers(users);
+      });
+  }, []);
 
   const sendMessage = (event) => {
     event.preventDefault();

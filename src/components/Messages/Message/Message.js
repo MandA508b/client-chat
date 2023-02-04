@@ -22,7 +22,7 @@ const Message = ({ message: { text, user,date }, name }) => {
             <p className="messageText colorWhite">{ReactEmoji.emojify(text)}</p>
           </div>
             <div>
-                {date}
+                {date.toString().slice(11,16)}
             </div>
         </div>
         )
@@ -33,7 +33,7 @@ const Message = ({ message: { text, user,date }, name }) => {
             </div>
             <p className="sentText pl-10 ">{user}</p>
               <div>
-                  {date}
+                  {date.toString().slice(11,16)}
               </div>
           </div>
         )

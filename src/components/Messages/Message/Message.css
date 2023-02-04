@@ -6,7 +6,13 @@
   display: inline-block;
   max-width: 80%;
 }
-
+p{
+  padding: 2px;
+  margin: 0;
+}
+.date{
+  font-size: 14px;
+}
 .messageText {
   width: 100%;
   letter-spacing: 0;

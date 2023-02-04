@@ -16,25 +16,28 @@ const Message = ({ message: { text, user,date }, name }) => {
   return (
     isSentByCurrentUser
       ? (
-        <div className="messageContainer justifyEnd">
+        <div>
+          <div className="messageContainer justifyEnd">
           <p className="sentText pr-10">{trimmedName}</p>
           <div className="messageBox backgroundBlue">
             <p className="messageText colorWhite">{ReactEmoji.emojify(text)}</p>
+            <p className='date'>{date.toString().slice(11,16)}</p>
           </div>
-            <div>
-                {date.toString().slice(11,16)}
-            </div>
         </div>
+     
+        </div>
+        
         )
         : (
           <div className="messageContainer justifyStart">
             <div className="messageBox backgroundLight">
               <p className="messageText colorDark">{ReactEmoji.emojify(text)}</p>
+              <p className='date'>
+                  {date.toString().slice(11,16)}
+              </p>
             </div>
             <p className="sentText pl-10 ">{user}</p>
-              <div>
-                  {date.toString().slice(11,16)}
-              </div>
+
           </div>
         )
   );

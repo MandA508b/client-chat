@@ -9,7 +9,7 @@ import Input from '../Input/Input';
 import './Chat.css';
 import { useLocation } from "react-router-dom";
 
-const ENDPOINT = 'https://chat-server-zsxa.onrender.com';
+const ENDPOINT = 'https://chatserver.ligabot.pp.ua';
 
 let socket;
 

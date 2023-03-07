@@ -24,3 +24,8 @@ input:focus, textarea:focus, select:focus{
   border: none;
   width: 15%;
 }
+
+.sendButton img{
+  height: 32px;
+  width: 32px;
+}

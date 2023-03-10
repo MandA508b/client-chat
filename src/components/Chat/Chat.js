@@ -21,8 +21,14 @@ const Chat = ( ) => {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
 
+  const [access, setAccess] = useState(false)
+
   useEffect(() => {
-    const { name, room } = queryString.parse(location.search);
+    const { name, room, linkedChat,statusStage,chatId } = queryString.parse(location.search);
+    console.log(linkedChat,statusStage,chatId)
+    if(statusStage==='open'){
+        if(linkedChat===chatId) setAccess(true)
+    }
     socket = io(ENDPOINT);
 
     setRoom(room);
@@ -52,6 +58,11 @@ const Chat = ( ) => {
       socket.emit('sendMessage', message, () => setMessage(''));
     }
   }
+
+  if(!access) return (<div className="notaccess" style={{textAlign:'center'}}>
+    <h4>У вас немає доступу до цього чату :/</h4>
+    <p style={{fontSize:12, fontWeight:300}}>цей чат зафіксований/заброньований іншим користувачем.</p>
+    </div>)
   
   return (
     <div className="outerContainer">

@@ -8,14 +8,13 @@ import Input from '../Input/Input';
 
 import './Chat.css';
 import { useLocation } from "react-router-dom";
-
-const ENDPOINT = 'https://chatserver.ligabot.pp.ua';
+const ENDPOINT = 'https://chatserver-liga-bot.telegram-crm.work';
 
 let socket;
 
 const Chat = ( ) => {
   const location = useLocation()
-  
+
   const [name, setName] = useState('');
   const [room, setRoom] = useState('');
   const [users, setUsers] = useState('');

@@ -23,6 +23,7 @@ const Chat = ( ) => {
   const [messages, setMessages] = useState([]);
 
   const [access, setAccess] = useState(false)
+  const [accessErr, setAccessErr] = useState('')
 
   useEffect(()=>{
     const fetchData = async ()=>{
@@ -33,6 +34,7 @@ const Chat = ( ) => {
         else if(adv.advertisement.linkedChat === chatId) setAccess(true)
       }catch (e){
         setAccess(false)
+        setAccessErr(JSON.stringify(e, null, 4))
       }
       
     }
@@ -77,6 +79,9 @@ const Chat = ( ) => {
   if(!access) return (<div className="notaccess" style={{textAlign:'center'}}>
     <h4>У вас немає доступу до цього чату :/</h4>
     <p style={{fontSize:12, fontWeight:300}}>цей чат зафіксований/заброньований іншим користувачем.</p>
+    {
+      accessErr.length ? accessErr : null
+    }
     </div>)
   
   return (

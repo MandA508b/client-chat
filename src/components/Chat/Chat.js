@@ -24,6 +24,7 @@ const Chat = ( ) => {
 
   const [access, setAccess] = useState(false)
   const [accessErr, setAccessErr] = useState('')
+  const [loading, setLoading] = useState(true)
 
   useEffect(()=>{
     const fetchData = async ()=>{
@@ -36,6 +37,8 @@ const Chat = ( ) => {
       }catch (e){
         setAccess(false)
         //setAccessErr(JSON.stringify(e, null, 4))
+      }finally{
+        setLoading(false)
       }
       
     }
@@ -76,7 +79,7 @@ const Chat = ( ) => {
       socket.emit('sendMessage', message, () => setMessage(''));
     }
   }
-
+  if(loading) return (<span>загрузка...</span>)
   if(!access) return (<div className="notaccess" style={{textAlign:'center'}}>
     <h4>У вас немає доступу до цього чату :/</h4>
     <p style={{fontSize:12, fontWeight:300}}>цей чат зафіксований/заброньований іншим користувачем.</p>

@@ -8,6 +8,7 @@ import Input from '../Input/Input';
 
 import './Chat.css';
 import { useLocation } from "react-router-dom";
+import axios from "axios";
 const ENDPOINT = 'https://chatserver-liga-bot.telegram-crm.work';
 
 let socket;
@@ -24,21 +25,28 @@ const Chat = ( ) => {
   const [access, setAccess] = useState(false)
 
   useEffect(() => {
-    const { name, room, linkedChat,statusStage,chatId } = queryString.parse(location.search);
-    console.log(linkedChat,statusStage,chatId)
-    if(statusStage==='open'){
-        if(linkedChat===chatId) setAccess(true)
+    const init = async ()=>{
+      const { name, room, advertisementId,chatId } = queryString.parse(location.search);
+
+      const adv = await axios.post('https://liga-bot.telegram-crm.work/advertisement/findById',{advertisementId})
+
+      if(adv.advertisement.statusStage === 'open') setAccess(true)
+      else 
+        if(adv.advertisement.linkedChat === chatId) setAccess(true)
+      
+      socket = io(ENDPOINT);
+
+      setRoom(room);
+      setName(name)
+
+      socket.emit('join', { name, room }, (error) => {
+        if(error) {
+          alert(error);
+        }
+      });
     }
-    socket = io(ENDPOINT);
-
-    setRoom(room);
-    setName(name)
-
-    socket.emit('join', { name, room }, (error) => {
-      if(error) {
-        alert(error);
-      }
-    });
+    init()
+    
   }, [ENDPOINT, location.search]);
   
     useEffect(() => {

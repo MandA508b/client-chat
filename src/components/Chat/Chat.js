@@ -31,8 +31,8 @@ const Chat = ( ) => {
         const {advertisementId,chatId } = queryString.parse(location.search);
         const adv = await axios.post('https://liga-bot.telegram-crm.work/advertisement/findById',{advertisementId})
         setAccessErr(JSON.stringify(adv, null, 4))
-        if(adv.advertisement.statusStage === 'open') setAccess(true)
-        else if(adv.advertisement.linkedChat === chatId) setAccess(true)
+        if(adv.data.advertisement.statusStage === 'open') setAccess(true)
+        else if(adv.data.advertisement.linkedChat === chatId) setAccess(true)
       }catch (e){
         setAccess(false)
         //setAccessErr(JSON.stringify(e, null, 4))

@@ -24,16 +24,24 @@ const Chat = ( ) => {
 
   const [access, setAccess] = useState(false)
 
-  useEffect(() => {
-    const init = async ()=>{
-      const { name, room, advertisementId,chatId } = queryString.parse(location.search);
-
-      const adv = await axios.post('https://liga-bot.telegram-crm.work/advertisement/findById',{advertisementId})
-
-      if(adv.advertisement.statusStage === 'open') setAccess(true)
-      else 
-        if(adv.advertisement.linkedChat === chatId) setAccess(true)
+  useEffect(()=>{
+    const fetchData = async ()=>{
+      try{
+        const {advertisementId,chatId } = queryString.parse(location.search);
+        const adv = await axios.post('https://liga-bot.telegram-crm.work/advertisement/findById',{advertisementId})
+        if(adv.advertisement.statusStage === 'open') setAccess(true)
+        else if(adv.advertisement.linkedChat === chatId) setAccess(true)
+      }catch (e){
+        setAccess(false)
+      }
       
+    }
+    fetchData()
+  },[])
+  useEffect(() => {
+      const { name, room } = queryString.parse(location.search);
+
+    
       socket = io(ENDPOINT);
 
       setRoom(room);
@@ -44,8 +52,7 @@ const Chat = ( ) => {
           alert(error);
         }
       });
-    }
-    init()
+    
     
   }, [ENDPOINT, location.search]);
   

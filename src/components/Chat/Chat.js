@@ -31,7 +31,7 @@ const Chat = ( ) => {
       try{
         const {advertisementId,chatId } = queryString.parse(location.search);
         const adv = await axios.post('https://liga-bot.telegram-crm.work/advertisement/findById',{advertisementId})
-        setAccessErr(JSON.stringify({chatId, res:adv.data.advertisement}, null, 4))
+        //setAccessErr(JSON.stringify({chatId, res:adv.data.advertisement}, null, 4))
         if(adv.data.advertisement.statusStage === 'open') setAccess(true)
         else if(adv.data.advertisement.linkedChat === chatId) setAccess(true)
       }catch (e){
@@ -79,7 +79,7 @@ const Chat = ( ) => {
       socket.emit('sendMessage', message, () => setMessage(''));
     }
   }
-  if(loading) return (<span>загрузка...</span>)
+  if(loading) return (<span style={{width:'100vw', textAlign:'center'}}>загрузка...</span>)
   if(!access) return (<div className="notaccess" style={{textAlign:'center'}}>
     <h4>У вас немає доступу до цього чату :/</h4>
     <p style={{fontSize:12, fontWeight:300}}>цей чат зафіксований/заброньований іншим користувачем.</p>
